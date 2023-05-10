@@ -14,10 +14,9 @@ public class Main {
 
     // TODO
     // Functional Interfaces and Lambda Expressions
-    // Stream API
+    // Stream API, ForEach() method
     // Type Inference <-> Method references
     // Function API
-    // ForEach() method
     // Optional-s
 
 
@@ -94,6 +93,7 @@ public class Main {
                 new Person(2, "Ruben"),
                 new Person(52, "Lilit"),
                 new Person(32, "Aram"),
+                new Person(7, "Mariam"),
                 new Person(5, "Vazgen"),
                 new Person(13, "Lilit"),
                 new Person(56, "Anna")
@@ -114,7 +114,8 @@ public class Main {
                 .map((p) -> p.getName())
                 .map(name -> name + " Avagyan");
 
-        List<String> fullNames = stringStream.distinct()
+        List<String> fullNames = stringStream.filter(n -> n.charAt(0) != 'M')
+                .distinct()
                 .collect(Collectors.toList());
 
         // we can only use one Terminal operation for a stream
