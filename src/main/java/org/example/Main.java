@@ -17,9 +17,12 @@ public class Main {
     // Stream API, ForEach() method
     // Type Inference <-> Method references
     // Function API
+    // TODO invocedynamic
+
+    // TODO parallelStream
+    // fork-join pool
+
     // Optional-s
-
-
     // Base64 Encode Decode
     // Collectors class
     // JDBC Enhancements
@@ -63,11 +66,11 @@ public class Main {
 //        System.out.println(im);
 
         String output = doWork(23,
-                (s, c) -> { // type erasure
+                (s, c) -> {
                     System.out.println("I am working on: " + s);
                     c.accept(s + "[]");
 
-                    return s.toString();
+                    return s;
                 }  // will be evaluated and invoked later on
         );
 
@@ -111,7 +114,8 @@ public class Main {
         System.out.println(res);*/
 
         Stream<String> stringStream = people.stream()
-                .map((p) -> p.getName())
+                .map(Person::getName)
+                .map(String::toString)
                 .map(name -> name + " Avagyan");
 
         List<String> fullNames = stringStream.filter(n -> n.charAt(0) != 'M')
@@ -122,6 +126,19 @@ public class Main {
 //        stringStream.forEach((s) -> {});
 
         System.out.println(fullNames);
+
+        /*people.stream()
+                .forEach(person -> {
+                    System.out.println(person.getName());
+                    person.setAge(21);
+                });*/
+
+        for(Person person : people) {
+            System.out.println(person.getName());
+            person.setAge(21);
+        }
+
+        System.out.println(people);
     }
 
     public static List<Integer> sort(List<Integer> input) {
